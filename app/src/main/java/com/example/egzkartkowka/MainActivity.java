@@ -1,7 +1,10 @@
 package com.example.egzkartkowka;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
@@ -16,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> rzeczyDoZrobieniaArrayList;
     private ArrayAdapter<String> arrayAdapter;
     private ListView listView;
+    private Button buttonDodaj;
+    private EditText editTextRzeczDoZrobienia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +33,25 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
             listView = findViewById(R.id.lista);
+            editTextRzeczDoZrobienia = findViewById(R.id.editTextText);
+            buttonDodaj = findViewById(R.id.button);
             rzeczyDoZrobieniaArrayList = new ArrayList<>();
             rzeczyDoZrobieniaArrayList.add("Wyspać się");
-            rzeczyDoZrobieniaArrayList.add("Wyspać się");
+            rzeczyDoZrobieniaArrayList.add("zrobić coś");
             arrayAdapter = new ArrayAdapter<>(this , android.R.layout.simple_list_item_1,rzeczyDoZrobieniaArrayList);
             listView.setAdapter(arrayAdapter);
-
+    buttonDodaj.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String rzecz = editTextRzeczDoZrobienia.getText().toString();
+                    rzeczyDoZrobieniaArrayList.add(rzecz);
+                    arrayAdapter.notifyDataSetChanged();
+                    editTextRzeczDoZrobienia.setText("");
+                }
+            }
+    );
     }
+
+
 }
